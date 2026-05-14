@@ -3,814 +3,684 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>LeadGurus Elevate — Built for Small & Medium Brokerages</title>
+<title>LeadGurus Elevate — Pitch Deck</title>
 <meta name="description" content="LeadGurus Elevate: four packages — Silver, Gold, Diamond, Platinum — for South African small and medium brokerages." />
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&display=swap" rel="stylesheet">
 <style>
+  /* ===========================================================
+     LeadGurus Elevate · Pitch Deck
+     Page = A4 landscape (297mm × 210mm)
+     Every slide is rendered as exactly one printed page.
+     =========================================================== */
+
   :root {
-    --bg-deep:        #0A1828;
-    --bg-card:        #11253A;
-    --bg-card-2:      #16304A;
-    --bronze:         #B89479;
-    --bronze-light:   #D4B098;
-    --bronze-dark:    #8B6F5A;
-    --bronze-glow:    rgba(184, 148, 121, 0.35);
-    --ink:            #0A1828;
-    --ink-soft:       #4A5868;
-    --text:           #F4F2EE;
-    --text-muted:     #9CA8B6;
-    --white:          #FFFFFF;
-    --border:         rgba(184, 148, 121, 0.18);
-    --border-strong:  rgba(184, 148, 121, 0.45);
-    --shadow-lg:      0 24px 60px -12px rgba(0,0,0,0.6), 0 0 0 1px rgba(184, 148, 121, 0.08);
+    --bg:           #0A1828;
+    --bg-2:         #0E1F33;
+    --panel:        #142A42;
+    --panel-2:      #1A3553;
+    --line:         rgba(232, 224, 213, 0.10);
+    --line-strong:  rgba(232, 224, 213, 0.22);
+    --bronze:       #C09A78;
+    --bronze-soft:  #D4B89C;
+    --bronze-deep:  #8B6F50;
+    --ink:          #0A1828;
+    --ink-soft:     #4A5868;
+    --paper:        #FAF7F2;
+    --text:         #F2EEE7;
+    --text-soft:    #B8C0CC;
+    --text-mute:    #8593A4;
+
+    --serif:  'Fraunces', 'Times New Roman', serif;
+    --sans:   'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   }
+
+  @page { size: A4 landscape; margin: 0; }
 
   *, *::before, *::after { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; }
+  html, body { margin: 0; padding: 0; background: #050C16; }
   body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-    background: var(--bg-deep);
+    font-family: var(--sans);
     color: var(--text);
     -webkit-font-smoothing: antialiased;
-    overflow: hidden;
-    line-height: 1.5;
+    text-rendering: optimizeLegibility;
   }
 
-  /* diagonal stripe like the site */
-  body::before {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background-image: repeating-linear-gradient(
-      45deg,
-      rgba(255, 255, 255, 0.012) 0,
-      rgba(255, 255, 255, 0.012) 1px,
-      transparent 1px,
-      transparent 14px
-    );
-    pointer-events: none;
-    z-index: 0;
-  }
-  body::after {
-    content: "";
-    position: fixed;
-    inset: 0;
-    background:
-      radial-gradient(ellipse 60% 50% at 20% 0%, rgba(184, 148, 121, 0.08), transparent 60%),
-      radial-gradient(ellipse 80% 60% at 80% 100%, rgba(184, 148, 121, 0.06), transparent 60%);
-    pointer-events: none;
-    z-index: 0;
+  /* ---------- Screen layout (scale to fit viewport) ---------- */
+  @media screen {
+    body { overflow: hidden; min-height: 100vh; display: flex; align-items: center; justify-content: center; }
+    .deck {
+      width: 297mm;
+      height: 210mm;
+      position: relative;
+      transform-origin: center center;
+      transform: scale(var(--scale, 1));
+    }
+    .slide { position: absolute; inset: 0; opacity: 0; visibility: hidden; transition: opacity .35s ease, visibility 0s linear .35s; }
+    .slide.active { opacity: 1; visibility: visible; transition: opacity .35s ease, visibility 0s; }
+    .ui { position: fixed; z-index: 50; }
+    .ui-counter {
+      bottom: 18px; right: 22px;
+      font-size: 11px; letter-spacing: 0.2em; text-transform: uppercase;
+      color: var(--text-mute); font-variant-numeric: tabular-nums;
+    }
+    .ui-counter b { color: var(--bronze); font-weight: 600; }
+    .ui-hint {
+      bottom: 18px; left: 22px;
+      font-size: 10px; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--text-mute);
+    }
+    .nav-btn {
+      position: fixed; top: 50%; transform: translateY(-50%);
+      width: 38px; height: 38px; border-radius: 50%;
+      border: 1px solid var(--line-strong);
+      background: rgba(10, 24, 40, 0.6); backdrop-filter: blur(8px);
+      color: var(--bronze); cursor: pointer; z-index: 50;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px; transition: all .2s ease;
+    }
+    .nav-btn:hover { background: var(--bronze); color: var(--bg); border-color: var(--bronze); }
+    .nav-btn.prev { left: 16px; }
+    .nav-btn.next { right: 16px; }
+    .nav-btn:disabled { opacity: 0.2; cursor: not-allowed; }
   }
 
-  /* ---------- Deck ---------- */
-  .deck {
-    position: relative;
-    height: 100vh;
-    width: 100vw;
-    overflow: hidden;
-    z-index: 1;
+  /* ---------- Print: each slide on its own A4 landscape page ---------- */
+  @media print {
+    html, body { width: 297mm; height: 210mm; background: var(--bg); }
+    body { display: block; }
+    .deck { width: 297mm; }
+    .slide {
+      width: 297mm; height: 210mm;
+      page-break-after: always; break-after: page;
+      opacity: 1 !important; visibility: visible !important;
+      display: block !important;
+      position: relative !important; inset: auto !important;
+    }
+    .ui, .nav-btn { display: none !important; }
+    * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   }
+
+  /* ===========================================================
+     SLIDE FRAME
+     =========================================================== */
   .slide {
-    position: absolute;
-    inset: 0;
-    padding: clamp(28px, 5vw, 64px) clamp(28px, 7vw, 96px);
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(20px);
-    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s linear 0.5s;
-    overflow-y: auto;
+    width: 297mm; height: 210mm;
+    background: var(--bg);
+    background-image:
+      radial-gradient(ellipse 60% 50% at 10% -5%, rgba(192, 154, 120, 0.10), transparent 55%),
+      radial-gradient(ellipse 60% 50% at 100% 105%, rgba(192, 154, 120, 0.08), transparent 55%);
+    color: var(--text);
+    padding: 14mm 18mm;
+    display: flex; flex-direction: column;
+    overflow: hidden;
+    position: relative;
   }
-  .slide.active {
-    opacity: 1;
-    visibility: visible;
-    transform: translateY(0);
-    transition: opacity 0.5s ease, transform 0.5s ease, visibility 0s;
+  .slide.light {
+    background: var(--paper);
+    background-image: none;
+    color: var(--ink);
   }
 
-  /* ---------- Header / Branding ---------- */
+  /* Header rail: brand left, slide number right */
+  .header {
+    display: flex; align-items: center; justify-content: space-between;
+    margin-bottom: 8mm;
+  }
   .brand {
-    position: fixed;
-    top: clamp(20px, 3vw, 36px);
-    left: clamp(28px, 5vw, 64px);
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    z-index: 10;
+    display: flex; align-items: center; gap: 8px;
+    font-size: 11pt; font-weight: 600; letter-spacing: 0.01em;
   }
-  .brand-mark {
-    width: 36px;
-    height: 36px;
-    border-radius: 50%;
-    background: linear-gradient(135deg, var(--bronze), var(--bronze-dark));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: var(--bg-deep);
-    font-family: 'Playfair Display', serif;
-    font-weight: 700;
-    font-size: 18px;
-    box-shadow: 0 0 0 1px var(--border-strong), 0 8px 20px -8px var(--bronze-glow);
+  .brand .mark {
+    width: 24px; height: 24px; border-radius: 50%;
+    background: linear-gradient(135deg, var(--bronze), var(--bronze-deep));
+    display: flex; align-items: center; justify-content: center;
+    color: var(--bg); font-family: var(--serif); font-weight: 600; font-size: 12pt;
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,0.15);
   }
-  .brand-wordmark {
-    font-weight: 700;
-    font-size: 15px;
-    letter-spacing: 0.01em;
-  }
-  .brand-wordmark .gurus { color: var(--bronze); }
-
-  /* ---------- Footer ---------- */
-  .footer {
-    position: fixed;
-    bottom: clamp(20px, 3vw, 32px);
-    left: 0;
-    right: 0;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 clamp(28px, 5vw, 64px);
-    font-size: 12px;
-    color: var(--text-muted);
-    z-index: 10;
-    letter-spacing: 0.04em;
-    text-transform: uppercase;
-  }
-  .footer .counter {
+  .brand .gurus { color: var(--bronze); }
+  .slide.light .brand .gurus { color: var(--bronze-deep); }
+  .slide-no {
+    font-size: 9pt; letter-spacing: 0.2em; text-transform: uppercase;
+    color: var(--text-mute);
     font-variant-numeric: tabular-nums;
-    color: var(--bronze);
-    font-weight: 600;
   }
-  .progress {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    height: 2px;
-    background: linear-gradient(90deg, var(--bronze), var(--bronze-light));
-    width: 0%;
-    transition: width 0.4s ease;
-    z-index: 11;
-    box-shadow: 0 0 12px var(--bronze-glow);
-  }
+  .slide.light .slide-no { color: var(--ink-soft); }
+  .slide-no b { color: var(--bronze); font-weight: 600; }
+  .slide.light .slide-no b { color: var(--bronze-deep); }
 
-  /* ---------- Nav arrows ---------- */
-  .nav-btn {
-    position: fixed;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    border: 1px solid var(--border);
-    background: rgba(17, 37, 58, 0.6);
-    backdrop-filter: blur(8px);
-    color: var(--bronze);
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    z-index: 20;
-    transition: all 0.2s ease;
-    font-size: 18px;
+  /* Footer rail */
+  .footer {
+    margin-top: auto;
+    display: flex; justify-content: space-between; align-items: center;
+    padding-top: 6mm;
+    border-top: 1px solid var(--line);
+    font-size: 8.5pt; letter-spacing: 0.14em; text-transform: uppercase;
+    color: var(--text-mute);
   }
-  .nav-btn:hover { background: var(--bronze); color: var(--bg-deep); border-color: var(--bronze); }
-  .nav-btn.prev { left: 20px; }
-  .nav-btn.next { right: 20px; }
-  .nav-btn:disabled { opacity: 0.25; cursor: not-allowed; }
+  .slide.light .footer { border-top-color: rgba(10, 24, 40, 0.08); color: var(--ink-soft); }
 
-  /* ---------- Typography ---------- */
+  /* Section eyebrow */
   .eyebrow {
-    display: inline-block;
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 0.22em;
-    text-transform: uppercase;
-    color: var(--bronze);
-    padding: 6px 12px;
-    border: 1px solid var(--border-strong);
-    border-radius: 100px;
-    margin-bottom: 28px;
+    display: inline-flex; align-items: center; gap: 10px;
+    font-size: 9pt; font-weight: 500; letter-spacing: 0.22em;
+    text-transform: uppercase; color: var(--bronze);
+    margin-bottom: 4mm;
   }
-  h1.display {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(38px, 6.5vw, 88px);
-    font-weight: 700;
-    line-height: 1.05;
-    margin: 0 0 24px 0;
+  .eyebrow::before { content: ""; width: 22px; height: 1px; background: var(--bronze); }
+  .slide.light .eyebrow { color: var(--bronze-deep); }
+  .slide.light .eyebrow::before { background: var(--bronze-deep); }
+
+  /* Body */
+  .body { flex: 1; display: flex; flex-direction: column; min-height: 0; }
+  h1, h2, h3, p, ul { margin: 0; }
+  h1 {
+    font-family: var(--serif);
+    font-size: 44pt; font-weight: 500; line-height: 1.02;
     letter-spacing: -0.02em;
+    margin-bottom: 6mm;
   }
-  h1.display .accent { color: var(--bronze); font-style: italic; }
+  h1 .em { color: var(--bronze); font-style: italic; font-weight: 500; }
   h2 {
-    font-family: 'Playfair Display', serif;
-    font-size: clamp(32px, 4.5vw, 56px);
-    font-weight: 700;
-    line-height: 1.1;
-    margin: 0 0 24px 0;
+    font-family: var(--serif);
+    font-size: 28pt; font-weight: 500; line-height: 1.08;
     letter-spacing: -0.015em;
+    margin-bottom: 4mm;
   }
-  h2 .accent { color: var(--bronze); }
+  h2 .em { color: var(--bronze); font-style: italic; font-weight: 500; }
   h3 {
-    font-size: clamp(20px, 2vw, 26px);
-    font-weight: 600;
-    margin: 0 0 12px 0;
-    letter-spacing: -0.01em;
+    font-size: 12pt; font-weight: 600; letter-spacing: -0.005em;
+    margin-bottom: 2mm;
   }
   .lede {
-    font-size: clamp(17px, 1.6vw, 22px);
-    color: var(--text-muted);
-    max-width: 780px;
-    line-height: 1.55;
-    font-weight: 300;
+    font-size: 13pt; font-weight: 300; line-height: 1.45;
+    color: var(--text-soft); max-width: 200mm;
   }
   .lede strong { color: var(--text); font-weight: 500; }
-  p { margin: 0 0 14px 0; }
+  .slide.light .lede { color: var(--ink-soft); }
+  .slide.light .lede strong { color: var(--ink); }
 
-  /* ---------- Slide layouts ---------- */
-  .slide-inner { max-width: 1280px; margin: 0 auto; height: 100%; display: flex; flex-direction: column; justify-content: center; }
-  .slide-title .slide-inner { padding-top: 40px; }
-  .center { text-align: center; }
-  .center .lede { margin-left: auto; margin-right: auto; }
+  /* ===========================================================
+     1 · TITLE
+     =========================================================== */
+  .slide-title { padding: 16mm 22mm; }
+  .slide-title .body { justify-content: center; }
+  .title-eyebrow {
+    font-size: 10pt; letter-spacing: 0.32em; text-transform: uppercase;
+    color: var(--bronze); margin-bottom: 8mm;
+  }
+  .title-h {
+    font-family: var(--serif);
+    font-size: 72pt; font-weight: 500; line-height: 0.98;
+    letter-spacing: -0.025em;
+  }
+  .title-h .em { color: var(--bronze); font-style: italic; font-weight: 500; }
+  .title-sub {
+    font-size: 14pt; font-weight: 300; color: var(--text-soft);
+    margin-top: 8mm; max-width: 180mm; line-height: 1.5;
+  }
+  .title-meta {
+    margin-top: 16mm;
+    display: flex; gap: 28px;
+    font-size: 9.5pt; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .title-meta span b { color: var(--bronze); font-weight: 600; }
 
-  /* ---------- Pill row ---------- */
-  .pill-row { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 24px; }
-  .pill {
-    font-size: 12px;
-    font-weight: 500;
-    padding: 6px 14px;
-    border-radius: 100px;
-    background: rgba(184, 148, 121, 0.1);
-    border: 1px solid var(--border);
-    color: var(--bronze-light);
+  /* ===========================================================
+     SLIDE 2 — Audience
+     =========================================================== */
+  .who-grid { display: grid; grid-template-columns: 1.2fr 1fr; gap: 16mm; align-items: start; }
+  .who-list { list-style: none; padding: 0; }
+  .who-list li {
+    padding: 4mm 0 4mm 12mm; position: relative;
+    font-size: 12pt; line-height: 1.4;
+    border-bottom: 1px solid var(--line);
+  }
+  .who-list li:last-child { border-bottom: none; }
+  .who-list li::before {
+    content: counter(it, decimal-leading-zero);
+    counter-increment: it;
+    position: absolute; left: 0; top: 4mm;
+    font-family: var(--serif); font-size: 11pt; color: var(--bronze);
+    font-style: italic;
+  }
+  .who-list { counter-reset: it; }
+  .who-list li strong { color: var(--bronze-soft); font-weight: 500; }
+
+  .stat-block {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    padding: 10mm;
+    border-radius: 2mm;
+  }
+  .stat { display: flex; align-items: baseline; gap: 10px; margin-bottom: 6mm; }
+  .stat:last-child { margin-bottom: 0; }
+  .stat .n {
+    font-family: var(--serif); font-size: 36pt; font-weight: 500;
+    color: var(--bronze); line-height: 1; letter-spacing: -0.02em;
+  }
+  .stat .l { font-size: 10pt; color: var(--text-soft); line-height: 1.3; max-width: 60mm; }
+
+  /* ===========================================================
+     SLIDE 3 — Value proposition (6 pillars)
+     =========================================================== */
+  .pillar-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; margin-top: 2mm; }
+  .pillar {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 2mm; padding: 8mm 8mm;
+    display: flex; flex-direction: column; gap: 3mm;
+    position: relative; overflow: hidden;
+  }
+  .pillar .pn {
+    font-family: var(--serif); font-style: italic;
+    color: var(--bronze); font-size: 10pt;
     letter-spacing: 0.02em;
   }
+  .pillar h3 { font-size: 14pt; }
+  .pillar p { font-size: 10pt; color: var(--text-soft); line-height: 1.4; }
 
-  /* ---------- Pricing cards ---------- */
-  .tier-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 18px;
-    margin-top: 32px;
-  }
+  /* ===========================================================
+     SLIDE 4 — Tier overview (4 cards)
+     =========================================================== */
+  .tier-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5mm; margin-top: 2mm; }
   .tier {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 2mm;
+    padding: 8mm 7mm 7mm;
+    display: flex; flex-direction: column;
     position: relative;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px 22px;
-    display: flex;
-    flex-direction: column;
-    transition: transform 0.25s ease, border-color 0.25s ease;
-    overflow: hidden;
+    min-height: 0;
   }
-  .tier::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 12px);
-    pointer-events: none;
-  }
-  .tier:hover { transform: translateY(-4px); border-color: var(--border-strong); }
   .tier.featured {
-    background: var(--white);
-    color: var(--ink);
+    background: var(--paper); color: var(--ink);
     border-color: var(--bronze);
-    box-shadow: 0 20px 50px -16px rgba(184, 148, 121, 0.4);
+    box-shadow: 0 6mm 16mm -8mm rgba(192, 154, 120, 0.35);
   }
-  .tier.featured::before { display: none; }
-  .tier-badge {
-    position: absolute;
-    top: -12px;
-    left: 50%;
+  .tier .ribbon {
+    position: absolute; top: -3mm; left: 50%;
     transform: translateX(-50%);
-    background: var(--bronze);
-    color: var(--white);
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 0.18em;
-    padding: 6px 14px;
-    border-radius: 100px;
+    background: var(--bronze); color: var(--paper);
+    font-size: 7.5pt; font-weight: 600; letter-spacing: 0.18em;
     text-transform: uppercase;
+    padding: 1.5mm 4mm; border-radius: 2mm;
     white-space: nowrap;
-    z-index: 2;
   }
-  .tier-badge::before { content: "★ "; }
-  .tier-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 26px;
-    font-weight: 700;
-    letter-spacing: -0.01em;
-    margin-bottom: 2px;
-    position: relative;
+  .tier .ribbon::before { content: "★ "; }
+  .tier .name {
+    font-family: var(--serif); font-size: 22pt; font-weight: 500;
+    letter-spacing: -0.01em; line-height: 1;
   }
-  .tier.featured .tier-name { color: var(--ink); }
-  .tier-price {
-    font-size: 32px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-    margin: 4px 0 4px 0;
-    position: relative;
+  .tier.featured .name { color: var(--ink); }
+  .tier .price {
+    font-size: 22pt; font-weight: 600; letter-spacing: -0.015em;
+    margin-top: 2mm;
   }
-  .tier.featured .tier-price { color: var(--ink); }
-  .tier-price small { font-size: 13px; color: var(--text-muted); font-weight: 400; margin-left: 2px; }
-  .tier.featured .tier-price small { color: var(--ink-soft); }
-  .tier-tag { font-size: 12px; color: var(--text-muted); margin-bottom: 16px; position: relative; }
-  .tier.featured .tier-tag { color: var(--ink-soft); }
-  .tier-features {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: relative;
-    flex: 1;
+  .tier .price small { font-size: 9pt; font-weight: 400; color: var(--text-mute); margin-left: 2px; }
+  .tier.featured .price small { color: var(--ink-soft); }
+  .tier .tag {
+    font-size: 8.5pt; color: var(--text-mute);
+    margin-top: 1mm; margin-bottom: 5mm;
+    letter-spacing: 0.04em; text-transform: uppercase;
   }
-  .tier-features li {
-    font-size: 13px;
-    padding: 7px 0 7px 22px;
-    position: relative;
-    color: var(--text);
-    border-bottom: 1px solid rgba(255,255,255,0.04);
+  .tier.featured .tag { color: var(--ink-soft); }
+  .tier ul {
+    list-style: none; padding: 0;
+    border-top: 1px solid var(--line); padding-top: 4mm; margin-top: auto;
   }
-  .tier.featured .tier-features li { color: var(--ink); border-bottom-color: rgba(10, 24, 40, 0.06); }
-  .tier-features li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    top: 7px;
-    color: var(--bronze);
-    font-weight: 700;
-    font-size: 13px;
+  .tier.featured ul { border-top-color: rgba(10, 24, 40, 0.08); }
+  .tier ul li {
+    font-size: 9.5pt; line-height: 1.3;
+    padding: 1.6mm 0 1.6mm 5mm; position: relative;
+  }
+  .tier ul li::before {
+    content: ""; width: 3mm; height: 1px; background: var(--bronze);
+    position: absolute; left: 0; top: 50%;
   }
 
-  /* ---------- Two col ---------- */
-  .two-col {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 56px;
-    align-items: center;
+  /* ===========================================================
+     SLIDES 5–8 — Tier detail
+     =========================================================== */
+  .detail-grid { display: grid; grid-template-columns: 1.2fr 1.8fr; gap: 14mm; align-items: stretch; }
+  .detail-left {
+    display: flex; flex-direction: column; justify-content: space-between;
   }
-  .two-col.wide-left { grid-template-columns: 1.3fr 1fr; }
+  .detail-meta {
+    margin-top: 6mm; padding-top: 5mm; border-top: 1px solid var(--line);
+    font-size: 10pt; color: var(--text-soft); line-height: 1.5;
+  }
+  .slide.light .detail-meta { border-top-color: rgba(10, 24, 40, 0.1); color: var(--ink-soft); }
+  .detail-meta b { color: var(--bronze); font-weight: 600; }
+  .slide.light .detail-meta b { color: var(--bronze-deep); }
+  .price-block {
+    margin-top: 4mm;
+    display: flex; align-items: baseline; gap: 4mm;
+  }
+  .price-block .pn {
+    font-family: var(--serif); font-size: 56pt; font-weight: 500;
+    color: var(--bronze); line-height: 0.9; letter-spacing: -0.025em;
+  }
+  .slide.light .price-block .pn { color: var(--bronze-deep); }
+  .price-block .pu {
+    font-size: 10pt; color: var(--text-soft);
+    letter-spacing: 0.1em; text-transform: uppercase;
+  }
+  .slide.light .price-block .pu { color: var(--ink-soft); }
+  .tagline {
+    font-family: var(--serif); font-style: italic;
+    font-size: 14pt; color: var(--bronze-soft);
+    line-height: 1.35; margin-top: 6mm; max-width: 90mm;
+  }
+  .slide.light .tagline { color: var(--bronze-deep); }
+  .ribbon-inline {
+    display: inline-block;
+    background: var(--bronze); color: var(--paper);
+    font-size: 8pt; font-weight: 600; letter-spacing: 0.2em;
+    text-transform: uppercase;
+    padding: 1.5mm 4mm; border-radius: 2mm;
+    margin-bottom: 4mm;
+  }
+  .ribbon-inline::before { content: "★ "; }
 
-  /* ---------- Feature list ---------- */
-  .feat-list { list-style: none; padding: 0; margin: 24px 0 0 0; }
-  .feat-list li {
-    font-size: 16px;
-    padding: 14px 0 14px 38px;
-    position: relative;
-    border-bottom: 1px solid var(--border);
-    color: var(--text);
+  .detail-features {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 2mm; padding: 8mm 8mm;
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 1mm 8mm;
+    align-content: start;
   }
-  .feat-list li:last-child { border-bottom: none; }
-  .feat-list li::before {
-    content: "✓";
-    position: absolute;
-    left: 4px;
-    top: 14px;
-    color: var(--bronze);
-    font-weight: 700;
-    width: 22px;
-    height: 22px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    border: 1px solid var(--border-strong);
-    border-radius: 50%;
-    font-size: 11px;
+  .slide.light .detail-features { background: var(--white, #FFFFFF); border-color: rgba(10, 24, 40, 0.1); }
+  .detail-features div {
+    font-size: 10.5pt; padding: 2.4mm 0 2.4mm 6mm; position: relative;
+    border-bottom: 1px dashed var(--line);
+    line-height: 1.35;
   }
-  .feat-list li strong { color: var(--bronze-light); font-weight: 600; }
+  .slide.light .detail-features div { border-bottom-color: rgba(10, 24, 40, 0.07); color: var(--ink); }
+  .detail-features div::before {
+    content: "✓"; position: absolute; left: 0; top: 2.4mm;
+    color: var(--bronze); font-weight: 700; font-size: 10pt;
+  }
+  .slide.light .detail-features div::before { color: var(--bronze-deep); }
+  .detail-features div b { color: var(--bronze-soft); font-weight: 600; }
+  .slide.light .detail-features div b { color: var(--bronze-deep); }
 
-  /* ---------- Big tier panel ---------- */
-  .tier-panel {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 20px;
-    padding: 40px;
-    position: relative;
-    overflow: hidden;
+  /* ===========================================================
+     SLIDE 9 — 60-second test
+     =========================================================== */
+  .pick-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6mm; margin-top: 2mm; }
+  .pick {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 2mm; padding: 8mm 8mm;
   }
-  .tier-panel::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.015) 0, rgba(255,255,255,0.015) 1px, transparent 1px, transparent 14px);
-    pointer-events: none;
-  }
-  .tier-panel.light { background: var(--white); color: var(--ink); border-color: var(--bronze); box-shadow: var(--shadow-lg); }
-  .tier-panel.light::before { display: none; }
-  .tier-panel-head {
-    display: flex;
-    align-items: baseline;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    position: relative;
-  }
-  .tier-panel-name {
-    font-family: 'Playfair Display', serif;
-    font-size: 44px;
-    font-weight: 700;
-    letter-spacing: -0.015em;
-  }
-  .tier-panel.light .tier-panel-name { color: var(--ink); }
-  .tier-panel-price {
-    font-size: 36px;
-    font-weight: 700;
-    letter-spacing: -0.02em;
-  }
-  .tier-panel-price small { font-size: 14px; font-weight: 400; color: var(--text-muted); margin-left: 4px; }
-  .tier-panel.light .tier-panel-price small { color: var(--ink-soft); }
-  .tier-panel-tagline {
-    font-size: 17px;
-    color: var(--bronze-light);
-    margin-bottom: 24px;
+  .pick .n {
+    font-family: var(--serif); font-size: 36pt; font-weight: 500;
+    color: var(--bronze); line-height: 0.9; margin-bottom: 5mm;
     font-style: italic;
-    position: relative;
   }
-  .tier-panel.light .tier-panel-tagline { color: var(--bronze-dark); }
-  .tier-panel-features {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 10px 32px;
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    position: relative;
+  .pick .q { font-size: 11pt; font-weight: 600; line-height: 1.35; margin-bottom: 4mm; }
+  .pick ul { list-style: none; padding: 0; }
+  .pick ul li {
+    font-size: 9.5pt; padding: 2mm 0;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--line); color: var(--text-soft);
   }
-  .tier-panel-features li {
-    font-size: 15px;
-    padding-left: 28px;
-    position: relative;
-    color: var(--text);
+  .pick ul li b {
+    color: var(--bronze); font-weight: 600; font-size: 9pt;
+    letter-spacing: 0.06em; text-transform: uppercase;
   }
-  .tier-panel.light .tier-panel-features li { color: var(--ink); }
-  .tier-panel-features li::before {
-    content: "✓";
-    position: absolute;
-    left: 0;
-    top: 0;
-    color: var(--bronze);
-    font-weight: 700;
-  }
-  .tier-panel-who {
-    margin-top: 28px;
-    padding-top: 24px;
-    border-top: 1px solid var(--border);
-    font-size: 15px;
-    color: var(--text-muted);
-    position: relative;
-  }
-  .tier-panel.light .tier-panel-who { color: var(--ink-soft); border-top-color: rgba(10, 24, 40, 0.1); }
-  .tier-panel-who strong { color: var(--bronze); font-weight: 600; }
-  .tier-panel.light .tier-panel-who strong { color: var(--bronze-dark); }
 
-  /* ---------- Comparison table ---------- */
+  /* ===========================================================
+     SLIDE 10 — Comparison table
+     =========================================================== */
   .compare {
-    margin-top: 28px;
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    overflow: hidden;
-    position: relative;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 2mm; overflow: hidden; margin-top: 2mm;
   }
-  .compare-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 14px;
+  .compare table { width: 100%; border-collapse: collapse; font-size: 10pt; }
+  .compare th, .compare td {
+    padding: 2.6mm 4mm; text-align: left;
+    border-bottom: 1px solid var(--line);
   }
-  .compare-table th, .compare-table td {
-    padding: 14px 18px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
+  .compare thead th {
+    background: rgba(192, 154, 120, 0.06);
+    color: var(--bronze); font-weight: 600;
+    font-size: 8.5pt; letter-spacing: 0.14em; text-transform: uppercase;
   }
-  .compare-table thead th {
-    background: rgba(184, 148, 121, 0.06);
-    color: var(--bronze);
-    font-weight: 600;
-    font-size: 12px;
-    letter-spacing: 0.08em;
-    text-transform: uppercase;
-  }
-  .compare-table thead th.featured-col { background: var(--bronze); color: var(--white); }
-  .compare-table tbody tr:last-child td { border-bottom: none; }
-  .compare-table tbody td { color: var(--text); }
-  .compare-table tbody td:first-child { color: var(--text-muted); font-weight: 500; }
-  .compare-table td.featured-col { background: rgba(184, 148, 121, 0.08); color: var(--bronze-light); font-weight: 600; }
+  .compare thead th.feat { background: var(--bronze); color: var(--paper); }
+  .compare tbody tr:last-child td { border-bottom: none; }
+  .compare tbody td { color: var(--text); }
+  .compare tbody td:first-child { color: var(--text-soft); font-weight: 500; }
+  .compare td.feat { background: rgba(192, 154, 120, 0.08); color: var(--bronze-soft); font-weight: 600; }
 
-  /* ---------- Pick test ---------- */
-  .pick-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 32px;
-  }
-  .pick-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 28px;
-    position: relative;
-    overflow: hidden;
-  }
-  .pick-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.012) 0, rgba(255,255,255,0.012) 1px, transparent 1px, transparent 12px);
-    pointer-events: none;
-  }
-  .pick-num {
-    font-family: 'Playfair Display', serif;
-    font-size: 48px;
-    font-weight: 700;
-    color: var(--bronze);
-    line-height: 1;
-    margin-bottom: 12px;
-    position: relative;
-  }
-  .pick-q { font-size: 16px; font-weight: 600; margin-bottom: 16px; position: relative; }
-  .pick-a {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    font-size: 13px;
-    position: relative;
-  }
-  .pick-a li {
-    padding: 6px 0;
-    color: var(--text-muted);
-    display: flex;
-    justify-content: space-between;
-    border-bottom: 1px dashed var(--border);
-  }
-  .pick-a li:last-child { border-bottom: none; }
-  .pick-a li strong { color: var(--bronze-light); font-weight: 600; }
-
-  /* ---------- Value table ---------- */
-  .value-table {
-    margin-top: 32px;
-    border-collapse: collapse;
-    width: 100%;
-    background: var(--bg-card);
-    border-radius: 16px;
-    overflow: hidden;
-    border: 1px solid var(--border);
-  }
-  .value-table th, .value-table td {
-    padding: 14px 24px;
-    text-align: left;
-    border-bottom: 1px solid var(--border);
-    font-size: 15px;
-  }
-  .value-table th { background: rgba(184, 148, 121, 0.06); color: var(--bronze); font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: 0.08em; }
-  .value-table tr.total-diy { background: rgba(255, 80, 80, 0.06); }
-  .value-table tr.total-diy td { color: #ffb4b4; font-weight: 600; }
-  .value-table tr.total-elevate { background: rgba(184, 148, 121, 0.1); }
-  .value-table tr.total-elevate td { color: var(--bronze-light); font-weight: 700; font-size: 16px; }
-  .value-table td:last-child { text-align: right; font-variant-numeric: tabular-nums; }
-
-  /* ---------- Roadmap ---------- */
-  .roadmap {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 0;
-    margin-top: 40px;
-    position: relative;
-  }
-  .roadmap::before {
-    content: "";
-    position: absolute;
-    top: 40px;
-    left: 8%;
-    right: 8%;
-    height: 2px;
-    background: linear-gradient(90deg, var(--bronze-dark), var(--bronze), var(--bronze-light));
-  }
-  .road-step {
-    text-align: center;
-    padding: 0 16px;
-    position: relative;
-  }
-  .road-dot {
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--bronze);
-    border: 4px solid var(--bg-deep);
-    margin: 32px auto 20px auto;
-    box-shadow: 0 0 0 1px var(--border-strong), 0 0 20px var(--bronze-glow);
-    position: relative;
-    z-index: 1;
-  }
-  .road-month {
-    font-size: 12px;
-    color: var(--bronze);
-    font-weight: 600;
-    letter-spacing: 0.1em;
-    text-transform: uppercase;
-    margin-bottom: 6px;
-  }
-  .road-tier {
-    font-family: 'Playfair Display', serif;
-    font-size: 24px;
-    font-weight: 700;
-    margin-bottom: 8px;
-  }
-  .road-desc {
-    font-size: 13px;
-    color: var(--text-muted);
-    line-height: 1.5;
-  }
-
-  /* ---------- CTA ---------- */
-  .cta-card {
-    margin-top: 40px;
-    background: linear-gradient(135deg, var(--bronze), var(--bronze-dark));
-    border-radius: 20px;
-    padding: 48px;
-    color: var(--white);
-    position: relative;
-    overflow: hidden;
-  }
-  .cta-card::before {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: repeating-linear-gradient(45deg, rgba(255,255,255,0.05) 0, rgba(255,255,255,0.05) 1px, transparent 1px, transparent 14px);
-    pointer-events: none;
-  }
-  .cta-card h2 { color: var(--white); margin-bottom: 12px; }
-  .cta-card .lede { color: rgba(255,255,255,0.9); }
-  .cta-contacts {
-    display: flex;
-    gap: 36px;
-    margin-top: 24px;
-    flex-wrap: wrap;
-    position: relative;
-  }
-  .cta-contacts span { font-size: 15px; }
-  .cta-contacts strong { color: var(--white); display: block; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; opacity: 0.7; margin-bottom: 4px; font-weight: 600; }
-
-  /* ---------- Add-ons list ---------- */
-  .addons {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 14px;
-    margin-top: 32px;
-  }
+  /* ===========================================================
+     SLIDE 11 — Add-ons
+     =========================================================== */
+  .addons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; margin-top: 2mm; }
   .addon {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 18px 20px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    transition: border-color 0.2s ease;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 2mm; padding: 5mm 6mm;
+    display: flex; justify-content: space-between; align-items: center; gap: 4mm;
   }
-  .addon:hover { border-color: var(--border-strong); }
-  .addon-name { font-size: 14px; font-weight: 500; }
-  .addon-name small { display: block; font-size: 12px; color: var(--text-muted); font-weight: 400; margin-top: 2px; }
-  .addon-price { font-size: 14px; font-weight: 700; color: var(--bronze); font-variant-numeric: tabular-nums; white-space: nowrap; margin-left: 12px; }
-
-  /* ---------- POPIA features ---------- */
-  .popia-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 18px;
-    margin-top: 32px;
-  }
-  .popia-card {
-    background: var(--bg-card);
-    border: 1px solid var(--border);
-    border-radius: 14px;
-    padding: 24px 28px;
-    position: relative;
-  }
-  .popia-card h3 { color: var(--bronze-light); font-size: 17px; margin-bottom: 6px; }
-  .popia-card p { color: var(--text-muted); font-size: 14px; margin: 0; }
-
-  /* ---------- Mobile ---------- */
-  @media (max-width: 900px) {
-    .tier-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
-    .two-col, .two-col.wide-left { grid-template-columns: 1fr; gap: 28px; }
-    .tier-panel-features { grid-template-columns: 1fr; }
-    .pick-grid { grid-template-columns: 1fr; }
-    .roadmap { grid-template-columns: 1fr 1fr; }
-    .roadmap::before { display: none; }
-    .addons { grid-template-columns: 1fr; }
-    .popia-grid { grid-template-columns: 1fr; }
-    .nav-btn { display: none; }
-    .slide { padding: 80px 24px 80px 24px; }
-    .brand { top: 16px; left: 24px; }
-    .footer { padding: 0 24px; bottom: 16px; }
-  }
-  @media (max-width: 600px) {
-    .tier-grid { grid-template-columns: 1fr; }
-    .compare-table { font-size: 12px; }
-    .compare-table th, .compare-table td { padding: 10px 10px; }
+  .addon .a-name { font-size: 10pt; font-weight: 500; line-height: 1.3; }
+  .addon .a-name small { display: block; font-size: 8.5pt; color: var(--text-mute); font-weight: 400; margin-top: 1mm; }
+  .addon .a-price {
+    font-size: 11pt; font-weight: 700; color: var(--bronze);
+    font-variant-numeric: tabular-nums; white-space: nowrap;
+    font-family: var(--serif);
   }
 
-  /* ---------- Print: each slide on its own page ---------- */
-  @media print {
-    body { overflow: visible; background: var(--bg-deep) !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-    body::before, body::after { display: none; }
-    .deck { height: auto; overflow: visible; }
-    .nav-btn, .footer, .progress { display: none !important; }
-    .slide {
-      position: relative;
-      opacity: 1 !important;
-      visibility: visible !important;
-      transform: none !important;
-      page-break-after: always;
-      break-after: page;
-      min-height: 100vh;
-      inset: auto;
-    }
+  /* ===========================================================
+     SLIDE 12 — Value comparison
+     =========================================================== */
+  .value {
+    margin-top: 2mm;
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 2mm; overflow: hidden;
   }
+  .value table { width: 100%; border-collapse: collapse; font-size: 11pt; }
+  .value th, .value td {
+    padding: 3.4mm 6mm; text-align: left;
+    border-bottom: 1px solid var(--line);
+  }
+  .value th {
+    background: rgba(192, 154, 120, 0.06); color: var(--bronze);
+    font-weight: 600; font-size: 9pt; letter-spacing: 0.14em; text-transform: uppercase;
+  }
+  .value td:last-child { text-align: right; font-variant-numeric: tabular-nums; font-weight: 500; }
+  .value tr.diy { background: rgba(220, 80, 80, 0.06); }
+  .value tr.diy td { color: #E5A2A2; font-weight: 600; }
+  .value tr.elv { background: rgba(192, 154, 120, 0.10); }
+  .value tr.elv td { color: var(--bronze-soft); font-weight: 700; font-size: 12pt; }
+  .value tr:last-child td { border-bottom: none; }
+  .value-caption {
+    font-size: 10pt; color: var(--text-soft); margin-top: 5mm; line-height: 1.45;
+    max-width: 220mm;
+  }
+  .value-caption b { color: var(--text); font-weight: 500; }
+
+  /* ===========================================================
+     SLIDE 13 — POPIA
+     =========================================================== */
+  .popia-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 5mm; margin-top: 2mm; }
+  .popia {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 2mm; padding: 7mm 8mm;
+    display: flex; gap: 5mm; align-items: flex-start;
+  }
+  .popia .ico {
+    width: 12mm; height: 12mm; border-radius: 50%;
+    background: rgba(192, 154, 120, 0.12);
+    color: var(--bronze); display: flex; align-items: center; justify-content: center;
+    font-family: var(--serif); font-style: italic; font-size: 16pt; font-weight: 500;
+    flex-shrink: 0;
+    border: 1px solid var(--line-strong);
+  }
+  .popia h3 { font-size: 12pt; color: var(--bronze-soft); margin-bottom: 1.5mm; }
+  .popia p { font-size: 9.5pt; color: var(--text-soft); line-height: 1.4; }
+
+  /* ===========================================================
+     SLIDE 14 — Roadmap
+     =========================================================== */
+  .roadmap { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0; margin-top: 8mm; position: relative; padding-top: 18mm; }
+  .roadmap::before {
+    content: ""; position: absolute; top: 22mm; left: 10%; right: 10%;
+    height: 1px;
+    background: linear-gradient(90deg, var(--bronze-deep), var(--bronze), var(--bronze-soft));
+  }
+  .road { text-align: center; padding: 0 5mm; position: relative; }
+  .road .dot {
+    width: 4mm; height: 4mm; border-radius: 50%;
+    background: var(--bronze);
+    border: 1.5mm solid var(--bg);
+    margin: -10mm auto 6mm auto;
+    box-shadow: 0 0 0 1px var(--bronze), 0 0 6mm rgba(192, 154, 120, 0.5);
+    position: relative; z-index: 1;
+  }
+  .road .when {
+    font-size: 8.5pt; color: var(--bronze); font-weight: 600;
+    letter-spacing: 0.16em; text-transform: uppercase; margin-bottom: 2mm;
+  }
+  .road .tier-n {
+    font-family: var(--serif); font-size: 22pt; font-weight: 500;
+    margin-bottom: 3mm; letter-spacing: -0.01em;
+  }
+  .road .desc { font-size: 10pt; color: var(--text-soft); line-height: 1.4; }
+
+  /* ===========================================================
+     SLIDE 15 — CTA
+     =========================================================== */
+  .cta-card {
+    margin-top: 6mm;
+    background: linear-gradient(135deg, var(--bronze), var(--bronze-deep));
+    color: var(--paper);
+    border-radius: 3mm; padding: 14mm 16mm;
+    position: relative; overflow: hidden;
+  }
+  .cta-card h2 { color: var(--paper); font-size: 30pt; margin-bottom: 4mm; }
+  .cta-card h2 .em { color: var(--bg); font-style: italic; }
+  .cta-card .lede { color: rgba(250, 247, 242, 0.9); font-size: 12pt; max-width: 180mm; }
+  .cta-contacts {
+    display: flex; gap: 18mm; margin-top: 10mm;
+    border-top: 1px solid rgba(250, 247, 242, 0.25); padding-top: 8mm;
+  }
+  .cta-contacts div span {
+    display: block; font-size: 8pt; letter-spacing: 0.2em; text-transform: uppercase;
+    opacity: 0.7; margin-bottom: 1.5mm; font-weight: 600;
+  }
+  .cta-contacts div b { font-size: 12pt; font-weight: 500; }
+
+  .cta-tagline {
+    margin-top: 8mm; text-align: center;
+    font-size: 9.5pt; letter-spacing: 0.18em; text-transform: uppercase;
+    color: var(--text-mute);
+  }
+  .cta-tagline b { color: var(--bronze); font-weight: 600; }
 </style>
 </head>
 <body>
 
-<!-- Brand -->
-<div class="brand">
-  <div class="brand-mark">L</div>
-  <div class="brand-wordmark">Lead<span class="gurus">Gurus</span></div>
-</div>
+<!-- Screen-only UI -->
+<button class="nav-btn prev" id="prevBtn" aria-label="Previous">‹</button>
+<button class="nav-btn next" id="nextBtn" aria-label="Next">›</button>
+<div class="ui ui-counter"><b id="cur">1</b> / <span id="tot">15</span></div>
+<div class="ui ui-hint">← → keys · swipe · click sides</div>
 
-<!-- Nav buttons -->
-<button class="nav-btn prev" id="prevBtn" aria-label="Previous slide">‹</button>
-<button class="nav-btn next" id="nextBtn" aria-label="Next slide">›</button>
+<div class="deck" id="deck">
 
-<div class="progress" id="progress"></div>
-
-<div class="footer">
-  <span>LeadGurus Elevate · Pitch Deck</span>
-  <span class="counter"><span id="cur">1</span> / <span id="tot">15</span></span>
-</div>
-
-<main class="deck" id="deck">
-
-  <!-- 1: Title -->
-  <section class="slide slide-title active">
-    <div class="slide-inner center">
-      <span class="eyebrow">For South African Small & Medium Brokerages</span>
-      <h1 class="display">Elevate <span class="accent">your brokerage.</span></h1>
-      <p class="lede">Four packages. One growth path. The complete back office for the brokerage that's <strong>too big for a side hustle and too small for an enterprise rollout</strong>.</p>
-      <div class="pill-row" style="justify-content: center; margin-top: 32px;">
-        <span class="pill">Silver</span>
-        <span class="pill">Gold ★ Recommended</span>
-        <span class="pill">Diamond</span>
-        <span class="pill">Platinum</span>
+  <!-- ─────────────── 1 · TITLE ─────────────── -->
+  <section class="slide slide-title">
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">01 · Cover</div>
+    </div>
+    <div class="body">
+      <div class="title-eyebrow">Pitch Deck · 2026</div>
+      <h1 class="title-h">Elevate your<br/><span class="em">brokerage.</span></h1>
+      <p class="title-sub">Four packages. One growth path. The complete back office for the brokerage that's too big for a side hustle and too small for an enterprise rollout.</p>
+      <div class="title-meta">
+        <span><b>Silver</b> · R6 999</span>
+        <span><b>Gold ★</b> · R9 999</span>
+        <span><b>Diamond</b> · R13 999</span>
+        <span><b>Platinum</b> · R19 999</span>
       </div>
     </div>
-  </section>
-
-  <!-- 2: Who this is for -->
-  <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">01 · Who it's for</span>
-      <h2>Built for the <span class="accent">2–20 agent brokerage.</span></h2>
-      <p class="lede">If you're scaling from a one-broker show into a real operation — and doing IT, marketing, compliance and recruitment yourself — Elevate replaces six suppliers with one subscription.</p>
-      <ul class="feat-list" style="max-width: 880px;">
-        <li>Independent brokers and <strong>2–20 agent</strong> brokerages</li>
-        <li>FSPs that need to <strong>look and operate professionally — fast</strong></li>
-        <li>Owners juggling everything: dialler, data, hiring, the website, the email</li>
-        <li>Anyone tired of personal Gmail addresses, personal cell numbers and a Facebook page they call a website</li>
-      </ul>
+    <div class="footer">
+      <span>LeadGurus Elevate</span>
+      <span>For Small &amp; Medium South African Brokerages</span>
     </div>
   </section>
 
-  <!-- 3: One subscription = whole back office -->
+  <!-- ─────────────── 2 · AUDIENCE ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">02 · The value proposition</span>
-      <h2>One subscription. <span class="accent">The whole back office.</span></h2>
-      <p class="lede">Every Elevate package bundles six things that normally come from six different vendors.</p>
-      <div class="addons" style="margin-top: 40px;">
-        <div class="addon"><div class="addon-name"><strong>Leads</strong><small>Records delivered monthly</small></div></div>
-        <div class="addon"><div class="addon-name"><strong>Airtime</strong><small>Per-minute, business rates</small></div></div>
-        <div class="addon"><div class="addon-name"><strong>Telephony</strong><small>VoIP landline + business cell</small></div></div>
-        <div class="addon"><div class="addon-name"><strong>Web presence</strong><small>Site, email, social, MS 365</small></div></div>
-        <div class="addon"><div class="addon-name"><strong>Brand assets</strong><small>Digital card + company PDF</small></div></div>
-        <div class="addon"><div class="addon-name"><strong>Support</strong><small>Named SLA, real humans</small></div></div>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">02 · Audience</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Who it's for</div>
+      <h2>Built for the <span class="em">2–20 agent</span> brokerage.</h2>
+      <p class="lede" style="margin-bottom: 8mm;">If you're scaling from a one-broker show into a real operation — doing IT, marketing, compliance and recruitment yourself — Elevate replaces six suppliers with one subscription.</p>
+      <div class="who-grid">
+        <ul class="who-list">
+          <li>Independent brokers and <strong>2–20 agent</strong> brokerages</li>
+          <li>FSPs that need to <strong>look and operate professionally — fast</strong></li>
+          <li>Owners juggling everything: dialler, data, hiring, the website</li>
+          <li>Anyone tired of personal Gmail and a Facebook page they call a website</li>
+        </ul>
+        <div class="stat-block">
+          <div class="stat"><div class="n">2–20</div><div class="l">Agents per brokerage in our sweet spot</div></div>
+          <div class="stat"><div class="n">14</div><div class="l">Days from sign-up to operational</div></div>
+          <div class="stat"><div class="n">1</div><div class="l">Invoice instead of six</div></div>
+        </div>
       </div>
-      <p class="lede" style="margin-top: 32px; font-size: 16px;">One invoice. One throat to choke. One growth path Silver → Platinum as you scale.</p>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Audience · 02</span></div>
   </section>
 
-  <!-- 4: The 4 tiers overview -->
+  <!-- ─────────────── 3 · VALUE / 6 PILLARS ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">03 · The packages</span>
-      <h2>Four tiers. <span class="accent">One per growth stage.</span></h2>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">03 · Proposition</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">The proposition</div>
+      <h2>One subscription. <span class="em">The whole back office.</span></h2>
+      <p class="lede" style="margin-bottom: 6mm;">Every Elevate package bundles six things that normally come from six different vendors — under one contract, with one support line.</p>
+      <div class="pillar-grid">
+        <div class="pillar"><div class="pn">i.</div><h3>Leads</h3><p>Compliant consumer and director records, delivered monthly into your CRM.</p></div>
+        <div class="pillar"><div class="pn">ii.</div><h3>Airtime</h3><p>Per-minute business rates from R0.28c — no contract lock-in on your numbers.</p></div>
+        <div class="pillar"><div class="pn">iii.</div><h3>Telephony</h3><p>VoIP landlines plus a business cell number — call recording included.</p></div>
+        <div class="pillar"><div class="pn">iv.</div><h3>Web presence</h3><p>Site, branded email, Microsoft 365 licences and organic social.</p></div>
+        <div class="pillar"><div class="pn">v.</div><h3>Brand assets</h3><p>Digital business card and a polished company profile PDF.</p></div>
+        <div class="pillar"><div class="pn">vi.</div><h3>Support</h3><p>Named SLA, response time in writing, real humans on the line.</p></div>
+      </div>
+    </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Proposition · 03</span></div>
+  </section>
+
+  <!-- ─────────────── 4 · TIER OVERVIEW ─────────────── -->
+  <section class="slide">
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">04 · The Packages</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">The packages</div>
+      <h2>Four tiers. <span class="em">One per growth stage.</span></h2>
+      <p class="lede" style="margin-bottom: 6mm;">Start where you are. Upgrade when the team grows. No long-term lock-in.</p>
       <div class="tier-grid">
 
         <div class="tier">
-          <div class="tier-name">Silver</div>
-          <div class="tier-price">R6 999<small>/month</small></div>
-          <div class="tier-tag">Solo broker · Just opened</div>
-          <ul class="tier-features">
-            <li>500 records/month</li>
-            <li>R0.35c/min airtime</li>
+          <div class="name">Silver</div>
+          <div class="price">R6 999<small>/month</small></div>
+          <div class="tag">Solo · Just opened</div>
+          <ul>
+            <li>500 records / month</li>
+            <li>R0.35c / min airtime</li>
             <li>1–3 page template site</li>
-            <li>1 landline + 1 cell</li>
+            <li>1 landline · 1 cell</li>
             <li>5 mailboxes · MS 365 ×1</li>
             <li>4 social posts / month</li>
             <li>Same-day support</li>
@@ -818,15 +688,15 @@
         </div>
 
         <div class="tier featured">
-          <div class="tier-badge">Recommended</div>
-          <div class="tier-name">Gold</div>
-          <div class="tier-price">R9 999<small>/month</small></div>
-          <div class="tier-tag">2–5 agents · Growing</div>
-          <ul class="tier-features">
-            <li>1 000 records/month</li>
-            <li>R0.32c/min airtime</li>
+          <div class="ribbon">Recommended</div>
+          <div class="name">Gold</div>
+          <div class="price">R9 999<small>/month</small></div>
+          <div class="tag">2–5 agents · Growing</div>
+          <ul>
+            <li>1 000 records / month</li>
+            <li>R0.32c / min airtime</li>
             <li>3–5 page template site</li>
-            <li>1 landline + 1 cell</li>
+            <li>1 landline · 1 cell</li>
             <li>10 mailboxes · MS 365 ×2</li>
             <li>8 social posts / month</li>
             <li>4-hour support</li>
@@ -834,14 +704,14 @@
         </div>
 
         <div class="tier">
-          <div class="tier-name">Diamond</div>
-          <div class="tier-price">R13 999<small>/month</small></div>
-          <div class="tier-tag">5–10 agents · Established</div>
-          <ul class="tier-features">
-            <li>1 000 records/month</li>
-            <li>R0.30c/min airtime</li>
-            <li>5–6 page <em>custom</em> site</li>
-            <li>3 landlines + 1 cell</li>
+          <div class="name">Diamond</div>
+          <div class="price">R13 999<small>/month</small></div>
+          <div class="tag">5–10 agents · Established</div>
+          <ul>
+            <li>1 000 records / month</li>
+            <li>R0.30c / min airtime</li>
+            <li>5–6 page custom site</li>
+            <li>3 landlines · 1 cell</li>
             <li>10 mailboxes · MS 365 ×5</li>
             <li>10 social posts / month</li>
             <li>2-hour support</li>
@@ -849,14 +719,14 @@
         </div>
 
         <div class="tier">
-          <div class="tier-name">Platinum</div>
-          <div class="tier-price">R19 999<small>/month</small></div>
-          <div class="tier-tag">10+ agents · B2B / Director sales</div>
-          <ul class="tier-features">
-            <li>500 <em>Director</em> records/month</li>
-            <li>R0.28c/min airtime</li>
-            <li>5–7 page <em>custom / e-commerce</em></li>
-            <li>3 landlines + 1 cell</li>
+          <div class="name">Platinum</div>
+          <div class="price">R19 999<small>/month</small></div>
+          <div class="tag">10+ agents · B2B</div>
+          <ul>
+            <li>500 director records / month</li>
+            <li>R0.28c / min airtime</li>
+            <li>5–7 page / e-commerce</li>
+            <li>3 landlines · 1 cell</li>
             <li>10–20 mailboxes · MS 365 ×10</li>
             <li>10 social posts / month</li>
             <li>2-hour VIP support</li>
@@ -865,388 +735,458 @@
 
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>The Packages · 04</span></div>
   </section>
 
-  <!-- 5: Silver detail -->
+  <!-- ─────────────── 5 · SILVER ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">04 · Silver</span>
-      <h2>Silver — <span class="accent">look like a real business by Monday.</span></h2>
-      <div class="tier-panel" style="margin-top: 24px;">
-        <div class="tier-panel-head">
-          <div class="tier-panel-name">Silver</div>
-          <div class="tier-panel-price">R6 999<small>/month</small></div>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">05 · Silver</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Tier 01 · Silver</div>
+      <div class="detail-grid">
+        <div class="detail-left">
+          <div>
+            <h2>Silver.</h2>
+            <div class="price-block"><div class="pn">R6 999</div><div class="pu">per month</div></div>
+            <div class="tagline">"Look like a real business by Monday."</div>
+          </div>
+          <div class="detail-meta">
+            <b>Best for:</b> the newly-licensed broker who needs a credible web presence, a business number, and lead flow — without a three-month procurement project.
+          </div>
         </div>
-        <div class="tier-panel-tagline">"Stop quoting from a Gmail address."</div>
-        <ul class="tier-panel-features">
-          <li>500 records / month</li>
-          <li>R0.35c / min airtime</li>
-          <li>1–3 page template website</li>
-          <li>Email hosting · 5 mailboxes</li>
-          <li>Microsoft 365 · 1 licence</li>
-          <li>Digital business card</li>
-          <li>Company profile (PDF)</li>
-          <li>1 VoIP landline number</li>
-          <li>1 business cell number</li>
-          <li>Organic social media setup</li>
-          <li>4 social posts / month</li>
-          <li>Same-day support response</li>
-        </ul>
-        <div class="tier-panel-who"><strong>Best for:</strong> the newly-licensed broker who needs a credible web presence, a business number, and lead flow — without spending three months tendering for six different suppliers.</div>
+        <div class="detail-features">
+          <div>500 records / month</div>
+          <div>R0.35c / min airtime</div>
+          <div>1–3 page template website</div>
+          <div>Email hosting · 5 mailboxes</div>
+          <div>Microsoft 365 · 1 licence</div>
+          <div>Digital business card</div>
+          <div>Company profile (PDF)</div>
+          <div>1 VoIP landline number</div>
+          <div>1 business cell number</div>
+          <div>Organic social media setup</div>
+          <div>4 social posts / month</div>
+          <div>Same-day support response</div>
+        </div>
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Silver · 05</span></div>
   </section>
 
-  <!-- 6: Gold detail (FEATURED) -->
-  <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">05 · Gold · ★ Recommended</span>
-      <h2>Gold — <span class="accent">the starter package for a real brokerage.</span></h2>
-      <div class="tier-panel light" style="margin-top: 24px;">
-        <div class="tier-badge" style="left: 40px; transform: none;">★ Recommended</div>
-        <div class="tier-panel-head">
-          <div class="tier-panel-name">Gold</div>
-          <div class="tier-panel-price">R9 999<small>/month</small></div>
+  <!-- ─────────────── 6 · GOLD (FEATURED, LIGHT) ─────────────── -->
+  <section class="slide light">
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">06 · Gold ★</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Tier 02 · Gold · ★ Recommended</div>
+      <div class="detail-grid">
+        <div class="detail-left">
+          <div>
+            <span class="ribbon-inline">Recommended</span>
+            <h2>Gold.</h2>
+            <div class="price-block"><div class="pn">R9 999</div><div class="pu">per month</div></div>
+            <div class="tagline">"Double the leads, double the output, half the headache."</div>
+          </div>
+          <div class="detail-meta">
+            <b>Best for:</b> 2–5 agent brokerages that need volume without going custom yet. The sweet spot of price vs. capability for most SMB FSPs.
+          </div>
         </div>
-        <div class="tier-panel-tagline">"Double the leads, double the output, half the headache."</div>
-        <ul class="tier-panel-features">
-          <li><strong>1 000 records / month</strong> (2× Silver)</li>
-          <li>R0.32c / min airtime</li>
-          <li>3–5 page template website</li>
-          <li>Email hosting · 10 mailboxes</li>
-          <li>Microsoft 365 · 2 licences</li>
-          <li>Digital business card</li>
-          <li>Company profile (PDF)</li>
-          <li>1 VoIP landline number</li>
-          <li>1 business cell number</li>
-          <li>Organic social media setup</li>
-          <li><strong>8 social posts / month</strong></li>
-          <li>4-hour support response</li>
-        </ul>
-        <div class="tier-panel-who"><strong>Best for:</strong> 2–5 agent brokerages that need volume without going custom yet. <strong>Why we recommend it:</strong> the sweet spot of price vs. capability for most SMB FSPs.</div>
+        <div class="detail-features">
+          <div><b>1 000 records / month</b> (2× Silver)</div>
+          <div>R0.32c / min airtime</div>
+          <div>3–5 page template website</div>
+          <div>Email hosting · 10 mailboxes</div>
+          <div>Microsoft 365 · 2 licences</div>
+          <div>Digital business card</div>
+          <div>Company profile (PDF)</div>
+          <div>1 VoIP landline number</div>
+          <div>1 business cell number</div>
+          <div>Organic social media setup</div>
+          <div><b>8 social posts / month</b></div>
+          <div>4-hour support response</div>
+        </div>
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Gold · 06</span></div>
   </section>
 
-  <!-- 7: Diamond detail -->
+  <!-- ─────────────── 7 · DIAMOND ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">06 · Diamond</span>
-      <h2>Diamond — <span class="accent">a small team that runs like a big one.</span></h2>
-      <div class="tier-panel" style="margin-top: 24px;">
-        <div class="tier-panel-head">
-          <div class="tier-panel-name">Diamond</div>
-          <div class="tier-panel-price">R13 999<small>/month</small></div>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">07 · Diamond</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Tier 03 · Diamond</div>
+      <div class="detail-grid">
+        <div class="detail-left">
+          <div>
+            <h2>Diamond.</h2>
+            <div class="price-block"><div class="pn">R13 999</div><div class="pu">per month</div></div>
+            <div class="tagline">"Your own brand identity and the telephony muscle to back it."</div>
+          </div>
+          <div class="detail-meta">
+            <b>Best for:</b> 5–10 agent brokerages that need their own brand identity and the telephony muscle to run multiple campaigns simultaneously.
+          </div>
         </div>
-        <div class="tier-panel-tagline">"Your own brand identity and the telephony muscle to back it."</div>
-        <ul class="tier-panel-features">
-          <li>1 000 records / month</li>
-          <li>R0.30c / min airtime</li>
-          <li><strong>5–6 page customised website</strong> (not template)</li>
-          <li>Email hosting · 10 mailboxes</li>
-          <li><strong>Microsoft 365 · 5 licences</strong></li>
-          <li>Digital business card</li>
-          <li>Company profile (PDF)</li>
-          <li><strong>3 VoIP landline numbers</strong></li>
-          <li>1 business cell number</li>
-          <li>Organic social media setup</li>
-          <li>10 social posts / month</li>
-          <li><strong>2-hour</strong> support response</li>
-        </ul>
-        <div class="tier-panel-who"><strong>Best for:</strong> 5–10 agent brokerages that need their own brand identity <em>and</em> the telephony muscle to run multiple campaigns at once.</div>
+        <div class="detail-features">
+          <div>1 000 records / month</div>
+          <div>R0.30c / min airtime</div>
+          <div><b>5–6 page customised site</b> (not template)</div>
+          <div>Email hosting · 10 mailboxes</div>
+          <div><b>Microsoft 365 · 5 licences</b></div>
+          <div>Digital business card</div>
+          <div>Company profile (PDF)</div>
+          <div><b>3 VoIP landline numbers</b></div>
+          <div>1 business cell number</div>
+          <div>Organic social media setup</div>
+          <div>10 social posts / month</div>
+          <div><b>2-hour</b> support response</div>
+        </div>
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Diamond · 07</span></div>
   </section>
 
-  <!-- 8: Platinum detail -->
+  <!-- ─────────────── 8 · PLATINUM ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">07 · Platinum</span>
-      <h2>Platinum — <span class="accent">director-level data and a site that sells.</span></h2>
-      <div class="tier-panel" style="margin-top: 24px;">
-        <div class="tier-panel-head">
-          <div class="tier-panel-name">Platinum</div>
-          <div class="tier-panel-price">R19 999<small>/month</small></div>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">08 · Platinum</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Tier 04 · Platinum</div>
+      <div class="detail-grid">
+        <div class="detail-left">
+          <div>
+            <h2>Platinum.</h2>
+            <div class="price-block"><div class="pn">R19 999</div><div class="pu">per month</div></div>
+            <div class="tagline">"Director-level data and a site that sells — built for B2B."</div>
+          </div>
+          <div class="detail-meta">
+            <b>Best for:</b> brokerages targeting business owners and directors, or running policy and product sales online with checkout.
+          </div>
         </div>
-        <div class="tier-panel-tagline">"Quality over volume — built for B2B and high-ticket sales."</div>
-        <ul class="tier-panel-features">
-          <li><strong>500 Director-level records / month</strong></li>
-          <li>R0.28c / min airtime <em>(lowest rate)</em></li>
-          <li><strong>5–7 page custom / e-commerce</strong> website</li>
-          <li>Email hosting · 10–20 mailboxes</li>
-          <li>Microsoft 365 · 10 licences</li>
-          <li>Digital business card</li>
-          <li>Company profile (PDF)</li>
-          <li>3 VoIP landline numbers</li>
-          <li>1 business cell number</li>
-          <li>Organic social media setup</li>
-          <li>10 social posts / month</li>
-          <li><strong>2-hour VIP support</strong> — jump the queue</li>
-        </ul>
-        <div class="tier-panel-who"><strong>Best for:</strong> brokerages targeting business owners and directors, or anyone running policy / product sales online with checkout.</div>
+        <div class="detail-features">
+          <div><b>500 director-level records / mo</b></div>
+          <div>R0.28c / min airtime <em>(lowest)</em></div>
+          <div><b>5–7 page custom / e-commerce</b></div>
+          <div>Email hosting · 10–20 mailboxes</div>
+          <div>Microsoft 365 · 10 licences</div>
+          <div>Digital business card</div>
+          <div>Company profile (PDF)</div>
+          <div>3 VoIP landline numbers</div>
+          <div>1 business cell number</div>
+          <div>Organic social media setup</div>
+          <div>10 social posts / month</div>
+          <div><b>2-hour VIP support</b> — jump the queue</div>
+        </div>
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Platinum · 08</span></div>
   </section>
 
-  <!-- 9: 60-second test -->
+  <!-- ─────────────── 9 · 60-SECOND TEST ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">08 · How to pick</span>
-      <h2>The <span class="accent">60-second test.</span></h2>
-      <p class="lede">Answer three questions. Land on a tier.</p>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">09 · Decision Guide</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">How to pick</div>
+      <h2>The <span class="em">60-second test.</span></h2>
+      <p class="lede" style="margin-bottom: 6mm;">Three questions. One tier.</p>
       <div class="pick-grid">
-
-        <div class="pick-card">
-          <div class="pick-num">1</div>
-          <div class="pick-q">How many agents are on the phones today?</div>
-          <ul class="pick-a">
-            <li>1 agent <strong>Silver</strong></li>
-            <li>2–5 agents <strong>Gold</strong></li>
-            <li>5–10 agents <strong>Diamond</strong></li>
-            <li>10+ agents <strong>Platinum</strong></li>
+        <div class="pick">
+          <div class="n">i.</div>
+          <div class="q">How many agents are on the phones today?</div>
+          <ul>
+            <li>1 agent <b>Silver</b></li>
+            <li>2–5 agents <b>Gold</b></li>
+            <li>5–10 agents <b>Diamond</b></li>
+            <li>10+ agents <b>Platinum</b></li>
           </ul>
         </div>
-
-        <div class="pick-card">
-          <div class="pick-num">2</div>
-          <div class="pick-q">Who are you calling?</div>
-          <ul class="pick-a">
-            <li>Consumers <strong>Silver–Diamond</strong></li>
-            <li>Directors / B2B <strong>Platinum</strong></li>
-            <li>Mixed book <strong>Diamond</strong></li>
+        <div class="pick">
+          <div class="n">ii.</div>
+          <div class="q">Who are you calling?</div>
+          <ul>
+            <li>Consumers <b>Silver–Diamond</b></li>
+            <li>Directors / B2B <b>Platinum</b></li>
+            <li>Mixed book <b>Diamond</b></li>
           </ul>
         </div>
-
-        <div class="pick-card">
-          <div class="pick-num">3</div>
-          <div class="pick-q">Do you need to sell online — not just be online?</div>
-          <ul class="pick-a">
-            <li>No <strong>Any tier</strong></li>
-            <li>Yes — e-commerce <strong>Platinum</strong></li>
-            <li>Maybe later <strong>Diamond</strong></li>
+        <div class="pick">
+          <div class="n">iii.</div>
+          <div class="q">Do you need to sell online — not just be online?</div>
+          <ul>
+            <li>No <b>Any tier</b></li>
+            <li>Yes, e-commerce <b>Platinum</b></li>
+            <li>Maybe later <b>Diamond</b></li>
           </ul>
         </div>
-
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Decision Guide · 09</span></div>
   </section>
 
-  <!-- 10: Compare table -->
+  <!-- ─────────────── 10 · COMPARISON ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">09 · Full comparison</span>
-      <h2>What changes <span class="accent">between tiers.</span></h2>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">10 · Comparison</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Side by side</div>
+      <h2>What changes <span class="em">between tiers.</span></h2>
       <div class="compare">
-        <table class="compare-table">
+        <table>
           <thead>
             <tr>
-              <th></th>
-              <th>Silver</th>
-              <th class="featured-col">Gold ★</th>
-              <th>Diamond</th>
-              <th>Platinum</th>
+              <th></th><th>Silver</th><th class="feat">Gold ★</th><th>Diamond</th><th>Platinum</th>
             </tr>
           </thead>
           <tbody>
-            <tr><td>Price / month</td><td>R6 999</td><td class="featured-col">R9 999</td><td>R13 999</td><td>R19 999</td></tr>
-            <tr><td>Records / month</td><td>500</td><td class="featured-col">1 000</td><td>1 000</td><td>500 Director</td></tr>
-            <tr><td>Airtime / min</td><td>R0.35c</td><td class="featured-col">R0.32c</td><td>R0.30c</td><td>R0.28c</td></tr>
-            <tr><td>Website</td><td>1–3 pg template</td><td class="featured-col">3–5 pg template</td><td>5–6 pg custom</td><td>5–7 pg / e-commerce</td></tr>
-            <tr><td>Email mailboxes</td><td>5</td><td class="featured-col">10</td><td>10</td><td>10–20</td></tr>
-            <tr><td>Microsoft 365 licences</td><td>1</td><td class="featured-col">2</td><td>5</td><td>10</td></tr>
-            <tr><td>VoIP landline numbers</td><td>1</td><td class="featured-col">1</td><td>3</td><td>3</td></tr>
-            <tr><td>Business cell number</td><td>1</td><td class="featured-col">1</td><td>1</td><td>1</td></tr>
-            <tr><td>Social posts / month</td><td>4</td><td class="featured-col">8</td><td>10</td><td>10</td></tr>
-            <tr><td>Support response</td><td>Same day</td><td class="featured-col">4 hour</td><td>2 hour</td><td>2 hour VIP</td></tr>
+            <tr><td>Price / month</td><td>R6 999</td><td class="feat">R9 999</td><td>R13 999</td><td>R19 999</td></tr>
+            <tr><td>Records / month</td><td>500</td><td class="feat">1 000</td><td>1 000</td><td>500 Director</td></tr>
+            <tr><td>Airtime / min</td><td>R0.35c</td><td class="feat">R0.32c</td><td>R0.30c</td><td>R0.28c</td></tr>
+            <tr><td>Website</td><td>1–3 pg template</td><td class="feat">3–5 pg template</td><td>5–6 pg custom</td><td>5–7 pg / e-commerce</td></tr>
+            <tr><td>Email mailboxes</td><td>5</td><td class="feat">10</td><td>10</td><td>10–20</td></tr>
+            <tr><td>Microsoft 365 licences</td><td>1</td><td class="feat">2</td><td>5</td><td>10</td></tr>
+            <tr><td>VoIP landlines</td><td>1</td><td class="feat">1</td><td>3</td><td>3</td></tr>
+            <tr><td>Business cell</td><td>1</td><td class="feat">1</td><td>1</td><td>1</td></tr>
+            <tr><td>Social posts / month</td><td>4</td><td class="feat">8</td><td>10</td><td>10</td></tr>
+            <tr><td>Support response</td><td>Same day</td><td class="feat">4 hour</td><td>2 hour</td><td>2 hour VIP</td></tr>
           </tbody>
         </table>
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Comparison · 10</span></div>
   </section>
 
-  <!-- 11: Operational add-ons -->
+  <!-- ─────────────── 11 · ADD-ONS ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">10 · Beyond the package</span>
-      <h2>When you outgrow the box — <span class="accent">plug in.</span></h2>
-      <p class="lede">Elevate is the subscription. These are the accelerators you bolt on as the brokerage scales.</p>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">11 · Operational Add-Ons</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Beyond the package</div>
+      <h2>When you outgrow the box — <span class="em">plug in.</span></h2>
+      <p class="lede" style="margin-bottom: 5mm;">Elevate is the subscription. These are the accelerators you bolt on as the brokerage scales.</p>
       <div class="addons">
-        <div class="addon"><div class="addon-name">Duplicate Checker<small>Per import</small></div><div class="addon-price">R750</div></div>
-        <div class="addon"><div class="addon-name">Number Rotation + Anti-Spam<small>Saves numbers from spam-flagging</small></div><div class="addon-price">R1 500</div></div>
-        <div class="addon"><div class="addon-name">Scripts &amp; Training<small>Compliance-ready scripts</small></div><div class="addon-price">R650</div></div>
-        <div class="addon"><div class="addon-name">Vici Dial CRM Setup<small>Campaign + dispositions + users</small></div><div class="addon-price">Quoted</div></div>
-        <div class="addon"><div class="addon-name">Admin / IT Support<small>Monthly retainer</small></div><div class="addon-price">R3 000 / m</div></div>
-        <div class="addon"><div class="addon-name">Hourly Consulting<small>Agent &amp; admin support</small></div><div class="addon-price">R650 / hr</div></div>
-        <div class="addon"><div class="addon-name">Half-Day Training<small>Up to 5 admins</small></div><div class="addon-price">R8 000</div></div>
-        <div class="addon"><div class="addon-name">Full-Day Training<small>Up to 5 admins</small></div><div class="addon-price">R12 000</div></div>
-        <div class="addon"><div class="addon-name">Recruitment Support<small>Per role</small></div><div class="addon-price">Quoted</div></div>
+        <div class="addon"><div class="a-name">Duplicate Checker<small>Per import — clean lists before dialling</small></div><div class="a-price">R750</div></div>
+        <div class="addon"><div class="a-name">Number Rotation &amp; Anti-Spam<small>Save numbers from spam flagging</small></div><div class="a-price">R1 500</div></div>
+        <div class="addon"><div class="a-name">Scripts &amp; Training<small>Compliance-ready call scripts</small></div><div class="a-price">R650</div></div>
+        <div class="addon"><div class="a-name">Vici Dial CRM Setup<small>Campaigns · dispositions · users</small></div><div class="a-price">Quoted</div></div>
+        <div class="addon"><div class="a-name">Admin / IT Support<small>Monthly retainer · same-day response</small></div><div class="a-price">R3 000 / m</div></div>
+        <div class="addon"><div class="a-name">Hourly Consulting<small>Agent &amp; admin coaching on tap</small></div><div class="a-price">R650 / hr</div></div>
+        <div class="addon"><div class="a-name">Half-Day Training<small>Up to 5 admins per session</small></div><div class="a-price">R8 000</div></div>
+        <div class="addon"><div class="a-name">Full-Day Training<small>Up to 5 admins · deep dive</small></div><div class="a-price">R12 000</div></div>
+        <div class="addon"><div class="a-name">Recruitment Support<small>Per role · sourcing &amp; screening</small></div><div class="a-price">Quoted</div></div>
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Operational Add-Ons · 11</span></div>
   </section>
 
-  <!-- 12: DIY vs Elevate -->
+  <!-- ─────────────── 12 · DIY vs ELEVATE ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">11 · The maths</span>
-      <h2>DIY costs more — <span class="accent">and gives you six suppliers.</span></h2>
-      <p class="lede">A realistic cost-stack for a 5-agent brokerage trying to build this themselves.</p>
-      <table class="value-table">
-        <thead>
-          <tr><th>Line item (DIY)</th><th>Realistic monthly cost</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Domain + 5-page website (freelancer)</td><td>R1 500 – R3 500</td></tr>
-          <tr><td>Email hosting + MS 365 (5 seats)</td><td>R1 200</td></tr>
-          <tr><td>VoIP landlines (3)</td><td>R900</td></tr>
-          <tr><td>Part-time social media manager</td><td>R3 500</td></tr>
-          <tr><td>Lead data (1 000 records)</td><td>R3 000+</td></tr>
-          <tr><td>Airtime allocation</td><td>R1 500 – R2 500</td></tr>
-          <tr class="total-diy"><td><strong>DIY total</strong></td><td><strong>R11 600 – R14 600</strong></td></tr>
-          <tr class="total-elevate"><td><strong>Diamond — everything, one invoice</strong></td><td><strong>R13 999</strong></td></tr>
-        </tbody>
-      </table>
-      <p class="lede" style="margin-top: 28px; font-size: 16px;">…and DIY gives you <strong>six suppliers, six invoices, six support queues</strong>. Elevate gives you one.</p>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">12 · The Maths</div>
     </div>
+    <div class="body">
+      <div class="eyebrow">The maths</div>
+      <h2>DIY costs more — <span class="em">and gives you six suppliers.</span></h2>
+      <div class="value">
+        <table>
+          <thead><tr><th>Line item (build it yourself, 5-agent brokerage)</th><th>Realistic monthly cost</th></tr></thead>
+          <tbody>
+            <tr><td>Domain + 5-page website (freelancer)</td><td>R1 500 – R3 500</td></tr>
+            <tr><td>Email hosting + Microsoft 365 (5 seats)</td><td>R1 200</td></tr>
+            <tr><td>VoIP landlines (3)</td><td>R900</td></tr>
+            <tr><td>Part-time social media manager</td><td>R3 500</td></tr>
+            <tr><td>Lead data (1 000 records)</td><td>R3 000+</td></tr>
+            <tr><td>Airtime allocation</td><td>R1 500 – R2 500</td></tr>
+            <tr class="diy"><td>DIY total</td><td>R11 600 – R14 600</td></tr>
+            <tr class="elv"><td>Diamond — everything, one invoice</td><td>R13 999</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="value-caption">…and DIY gives you <b>six suppliers, six invoices, six support queues</b>. Elevate gives you one — at the same price as the middle of the DIY range.</p>
+    </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>The Maths · 12</span></div>
   </section>
 
-  <!-- 13: POPIA & compliance -->
+  <!-- ─────────────── 13 · POPIA ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">12 · Compliance</span>
-      <h2>POPIA &amp; compliance <span class="accent">built in.</span></h2>
-      <p class="lede">You stop being one DPA complaint away from a problem.</p>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">13 · Compliance</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Compliance</div>
+      <h2>POPIA &amp; compliance <span class="em">built in.</span></h2>
+      <p class="lede" style="margin-bottom: 5mm;">Every Elevate package ships with the compliance scaffolding small FSPs typically forget to set up. You stop being one DPA complaint away from a problem.</p>
       <div class="popia-grid">
-        <div class="popia-card">
-          <h3>Compliant lead data</h3>
-          <p>Records sourced under POPIA · opt-out workflow handled by us.</p>
+        <div class="popia">
+          <div class="ico">i.</div>
+          <div>
+            <h3>Compliant lead data</h3>
+            <p>Records sourced under POPIA. Opt-out workflow handled by us — your agents never touch a non-compliant list.</p>
+          </div>
         </div>
-        <div class="popia-card">
-          <h3>Call recording trail</h3>
-          <p>Business numbers + VoIP gives you a compliance trail on every call.</p>
+        <div class="popia">
+          <div class="ico">ii.</div>
+          <div>
+            <h3>Call recording trail</h3>
+            <p>Business numbers and VoIP infrastructure give you a defensible record of every consent on every call.</p>
+          </div>
         </div>
-        <div class="popia-card">
-          <h3>Branded email identity</h3>
-          <p>No more Gmail — a legitimate Information Officer footprint for the regulator.</p>
+        <div class="popia">
+          <div class="ico">iii.</div>
+          <div>
+            <h3>Branded email identity</h3>
+            <p>No more Gmail. A proper @yourbrokerage.co.za address is the foundation of a legitimate Information Officer footprint.</p>
+          </div>
         </div>
-        <div class="popia-card">
-          <h3>Consistent disclosure</h3>
-          <p>Digital business card + company profile PDF = the same disclosure to every client.</p>
+        <div class="popia">
+          <div class="ico">iv.</div>
+          <div>
+            <h3>Consistent disclosure</h3>
+            <p>Digital business card and company profile PDF mean every client sees the same regulator-ready disclosure.</p>
+          </div>
         </div>
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Compliance · 13</span></div>
   </section>
 
-  <!-- 14: Roadmap -->
+  <!-- ─────────────── 14 · ROADMAP ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">13 · The growth path</span>
-      <h2>Silver to Platinum — <span class="accent">at your pace.</span></h2>
-      <p class="lede">A realistic growth path for a small brokerage. You're not locked in — upgrade or downgrade as the team flexes.</p>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">14 · Growth Path</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">The growth path</div>
+      <h2>Silver to Platinum — <span class="em">at your pace.</span></h2>
+      <p class="lede">A realistic upgrade path for a small brokerage. You're not locked in — move up or down as the team flexes.</p>
       <div class="roadmap">
-        <div class="road-step">
-          <div class="road-dot"></div>
-          <div class="road-month">Month 1–3</div>
-          <div class="road-tier">Silver</div>
-          <div class="road-desc">Get listed. Get found. Look legitimate.</div>
+        <div class="road">
+          <div class="dot"></div>
+          <div class="when">Month 1–3</div>
+          <div class="tier-n">Silver</div>
+          <div class="desc">Get listed. Get found. Look legitimate from day one.</div>
         </div>
-        <div class="road-step">
-          <div class="road-dot"></div>
-          <div class="road-month">Month 4–9</div>
-          <div class="road-tier">Gold</div>
-          <div class="road-desc">Hire 2–5 agents. Double the leads.</div>
+        <div class="road">
+          <div class="dot"></div>
+          <div class="when">Month 4–9</div>
+          <div class="tier-n">Gold</div>
+          <div class="desc">Hire 2–5 agents. Double the leads. Step up output.</div>
         </div>
-        <div class="road-step">
-          <div class="road-dot"></div>
-          <div class="road-month">Month 10–18</div>
-          <div class="road-tier">Diamond</div>
-          <div class="road-desc">Customised brand. Multi-line call ops.</div>
+        <div class="road">
+          <div class="dot"></div>
+          <div class="when">Month 10–18</div>
+          <div class="tier-n">Diamond</div>
+          <div class="desc">Customised brand. Multi-line call operations.</div>
         </div>
-        <div class="road-step">
-          <div class="road-dot"></div>
-          <div class="road-month">Month 18+</div>
-          <div class="road-tier">Platinum</div>
-          <div class="road-desc">Move upmarket — director sales, online checkout.</div>
+        <div class="road">
+          <div class="dot"></div>
+          <div class="when">Month 18+</div>
+          <div class="tier-n">Platinum</div>
+          <div class="desc">Move upmarket — director sales, online checkout.</div>
         </div>
       </div>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Growth Path · 14</span></div>
   </section>
 
-  <!-- 15: CTA -->
+  <!-- ─────────────── 15 · CTA ─────────────── -->
   <section class="slide">
-    <div class="slide-inner">
-      <span class="eyebrow">14 · Next steps</span>
-      <h2>Pick a tier. <span class="accent">Be live in 14 days.</span></h2>
+    <div class="header">
+      <div class="brand"><div class="mark">L</div><span>Lead<span class="gurus">Gurus</span></span></div>
+      <div class="slide-no">15 · Next Steps</div>
+    </div>
+    <div class="body">
+      <div class="eyebrow">Next steps</div>
+      <h2>Pick a tier. <span class="em">Be live in 14 days.</span></h2>
       <div class="cta-card">
-        <h2>Book your 15-minute discovery call.</h2>
-        <p class="lede">On the call we'll recommend a tier, scope your onboarding, and have you operational within 7–14 working days.</p>
+        <h2>Book your 15-minute <span class="em">discovery call.</span></h2>
+        <p class="lede">On the call we'll recommend a tier, scope your onboarding, and have your brokerage operational within 7–14 working days.</p>
         <div class="cta-contacts">
-          <span><strong>Phone</strong>+27 [number]</span>
-          <span><strong>Email</strong>info@leadgurus.co.za</span>
-          <span><strong>Web</strong>leadgurus.co.za</span>
+          <div><span>Phone</span><b>+27 [number]</b></div>
+          <div><span>Email</span><b>info@leadgurus.co.za</b></div>
+          <div><span>Web</span><b>leadgurus.co.za</b></div>
         </div>
       </div>
-      <p style="margin-top: 32px; text-align: center; font-size: 13px; color: var(--text-muted); letter-spacing: 0.04em;">Silver · <strong style="color: var(--bronze);">Gold ★</strong> · Diamond · Platinum &nbsp;—&nbsp; Choose your tier.</p>
+      <p class="cta-tagline">Silver · <b>Gold ★</b> · Diamond · Platinum &nbsp;—&nbsp; Choose your tier.</p>
     </div>
+    <div class="footer"><span>LeadGurus Elevate</span><span>Next Steps · 15</span></div>
   </section>
 
-</main>
+</div>
 
 <script>
   (function(){
     const slides = document.querySelectorAll('.slide');
+    const deck = document.getElementById('deck');
     const total = slides.length;
     let current = 0;
-
-    const curEl  = document.getElementById('cur');
-    const totEl  = document.getElementById('tot');
-    const prog   = document.getElementById('progress');
+    const curEl = document.getElementById('cur');
+    document.getElementById('tot').textContent = total;
     const prevBtn = document.getElementById('prevBtn');
     const nextBtn = document.getElementById('nextBtn');
-    totEl.textContent = total;
 
+    function fitScale() {
+      const w = window.innerWidth, h = window.innerHeight;
+      const sw = 297 * 96 / 25.4;   // 297mm @ 96dpi ≈ 1123px
+      const sh = 210 * 96 / 25.4;   // 210mm @ 96dpi ≈ 794px
+      const margin = 40;
+      const s = Math.min((w - margin) / sw, (h - margin) / sh);
+      document.documentElement.style.setProperty('--scale', s);
+    }
     function go(i) {
       i = Math.max(0, Math.min(total - 1, i));
       slides[current].classList.remove('active');
       current = i;
       slides[current].classList.add('active');
-      slides[current].scrollTop = 0;
       curEl.textContent = current + 1;
-      prog.style.width = ((current + 1) / total * 100) + '%';
       prevBtn.disabled = current === 0;
       nextBtn.disabled = current === total - 1;
       history.replaceState(null, '', '#' + (current + 1));
     }
-
     function next() { go(current + 1); }
     function prev() { go(current - 1); }
 
+    window.addEventListener('resize', fitScale);
     document.addEventListener('keydown', (e) => {
       if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') { e.preventDefault(); next(); }
       else if (e.key === 'ArrowLeft' || e.key === 'PageUp') { e.preventDefault(); prev(); }
-      else if (e.key === 'Home') { go(0); }
-      else if (e.key === 'End') { go(total - 1); }
+      else if (e.key === 'Home') go(0);
+      else if (e.key === 'End') go(total - 1);
     });
-
     prevBtn.addEventListener('click', prev);
     nextBtn.addEventListener('click', next);
 
-    // simple swipe
     let touchStartX = null;
     document.addEventListener('touchstart', e => { touchStartX = e.touches[0].clientX; }, { passive: true });
     document.addEventListener('touchend', e => {
       if (touchStartX === null) return;
       const dx = e.changedTouches[0].clientX - touchStartX;
-      if (Math.abs(dx) > 50) { dx < 0 ? next() : prev(); }
+      if (Math.abs(dx) > 50) (dx < 0 ? next : prev)();
       touchStartX = null;
     });
 
-    // Deep-link to slide N via hash
+    fitScale();
     const fromHash = parseInt((location.hash || '').replace('#', ''), 10);
-    if (!isNaN(fromHash) && fromHash >= 1 && fromHash <= total) {
-      go(fromHash - 1);
-    } else {
-      go(0);
-    }
+    if (!isNaN(fromHash) && fromHash >= 1 && fromHash <= total) go(fromHash - 1);
+    else go(0);
   })();
 </script>
 </body>
